@@ -1,6 +1,6 @@
 import './App.css';
 import axios from 'axios';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -9,18 +9,16 @@ function App() {
   const [lyricsState, setlyricsState] = useState('');
   const search = (e) => {
     setsearchSong(e.target.value);
-    
-  }
-
-  useEffect(() => {
-    axios.get(`https://api.lyrics.ovh/suggest/${searchSong}`)
+    axios.get(`https://api.lyrics.ovh/suggest/${e.target.value}`)
     .then(res => {
       setresult(res.data.data);
       //console.log(result)
       
     })
     .catch(err => console.log('search first'))
-  });
+    
+  }
+
 
   const lyrics = (artist, title) => {
     axios.get(`https://api.lyrics.ovh/v1/${artist}/${title}`)
@@ -46,7 +44,7 @@ function App() {
               {result.map((v, i) => {
                 return(
                   <>
-                    <div className="col-sm m-2" key={i}>
+                    <div className="col-sm p-2" key={i}>
                       <div className='cardx'>
                         <div className='p-3' style={{textAlign: 'center'}}>
                           <h5>Your Song</h5>
